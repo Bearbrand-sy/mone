@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <title>Document</title>
+    <title>Solar-Powered Charging Station</title>
     <style>
         body{
            margin: 0;
@@ -128,6 +128,10 @@
                 border-radius: 5px;
                 background-color: #f9f9f9;
             }
+            .card:hover {
+                transform: translateY(-10px);  
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);  
+              }
     </style>
 </head>
 <nav class="navbar navbar-expand-lg">
@@ -194,33 +198,61 @@
         <button id="closeFullStationBtn">Close</button>
     </div>
 </div>
-  <section style="height: 45vh; margin-bottom: 4rem; margin-top: 6rem;">
+
+<!-- Modal for Collecting User Information (Name, Placard Number, Address, etc.) -->
+<div id="occupationModal" class="modal">
+  <div class="modal-content" style="padding: 3rem; background-color: #fdba2c;">
+    <span class="close-btn" id="closeOccupationModal">&times;</span>
+    <h2>Fill out your details</h2>
+    <form id="occupationForm">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="placardNumber">Placard Number:</label>
+        <input type="text" id="placardNumber" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="homeAddress">Home Address:</label>
+        <input type="text" id="homeAddress" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" class="form-control" required>
+      </div>
+      <button type="button" class="btn btn-success" id="submitOccupationBtn" style="margin-left: 9rem;">Confirm</button>
+    </form>
+  </div>
+</div>
+
+  <section style="height: 65vh; margin-bottom: 4rem; margin-top: 6rem; padding-left: 4rem;">
     <div class="container text-center">
       <div class="row">
         <div class="col">
-          <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+          <div class="card" style="width: 22rem; transition: transform 0.3s ease-in, box-shadow 0.3s ease-in;">
+            <img src="pic11.png" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 class="card-title">Manolo Fortich Charging Station</h5>
+              <p class="card-text">The Manolo Solar-Powered Charging Station, offers a reliable way to charge electronic devices using clean, renewable solar energy. Designed for public spaces such as parks, plazas, and city streets, the station serves as both a practical amenity and a step toward greener urban infrastructure. </p>
             </div>
           </div>
         </div>
         <div class="col">
-          <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+          <div class="card" style="width: 22rem; transition: transform 0.3s ease-in, box-shadow 0.3s ease-in;">
+            <img src="pic12.png" class="card-img-top" alt="..." style="height: 10.3rem;">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 class="card-title">Alae Charging Station</h5>
+              <p class="card-text">The Alae Solar-Powered Charging Station is a forward-thinking, eco-friendly solution designed to provide renewable energy for charging electronic devices in outdoor public spaces.</p>
             </div>
           </div>
         </div>
         <div class="col">
-          <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+          <div class="card" style="width: 22rem; transition: transform 0.3s ease-in, box-shadow 0.3s ease-in;">
+            <img src="pic13.png" class="card-img-top" alt="..." style="height: 10.3rem;">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 class="card-title">Dalirig Charging Station</h5>
+              <p class="card-text">The Dalirig Solar-Powered Charging Station is a modern, sustainable charging hub designed to meet the growing need for eco-friendly power sources in public spaces. Powered entirely by solar energy, the Dalirig station offers a clean, renewable way for individuals to charge their devices while reducing their environmental impact.</p>
             </div>
           </div>
         </div>

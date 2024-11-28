@@ -1,17 +1,17 @@
 class LeafletMap {
+
     constructor(containerId, center, zoom) {
         this.map = L.map(containerId).setView(center, zoom);
         this.initTileLayer();
         this.markerCounts = {}; // Tracks the number of people occupying each station
         this.markers = []; // Array to store marker objects
-
         // Button elements
         this.btn = document.getElementById('btn');
         this.btn1 = document.getElementById('btn1');
         this.btn2 = document.getElementById('btn2');
         this.idContainer = document.getElementById('logContainer');
 
-        // Modal elements
+        // Modal elements for area selection
         this.modal = document.getElementById('areaModal');
         this.closeModal = document.getElementById('closeModal');
         this.modalMessage = document.getElementById('modalMessage');
@@ -19,6 +19,15 @@ class LeafletMap {
         this.cancelBtn = document.getElementById('cancelBtn');
         this.fullStationModal = document.getElementById('fullStationModal');
         this.closeFullStationModal = document.getElementById('closeFullStationModal');
+
+        // Modal elements for occupation form
+        this.occupationModal = document.getElementById('occupationModal');
+        this.closeOccupationModal = document.getElementById('closeOccupationModal');
+        this.submitOccupationBtn = document.getElementById('submitOccupationBtn');
+        this.nameInput = document.getElementById('name');
+        this.placardNumberInput = document.getElementById('placardNumber');
+        this.homeAddressInput = document.getElementById('homeAddress');
+        this.phoneNumberInput = document.getElementById('phoneNumber');
 
         // Event listeners for buttons
         this.btn.addEventListener('click', () => this.handleButtonClick('Manolo Fortich Charging Station', 8.371400, 124.855103));
@@ -30,6 +39,10 @@ class LeafletMap {
         this.confirmBtn.addEventListener('click', () => this.confirmAreaOccupation());
         this.cancelBtn.addEventListener('click', () => this.closeModalWindow());
         this.closeFullStationModal.addEventListener('click', () => this.closeFullStationModalWindow());
+
+        // Occupation modal controls
+        this.closeOccupationModal.addEventListener('click', () => this.closeOccupationModalWindow());
+        this.submitOccupationBtn.addEventListener('click', () => this.submitOccupationForm());
     }
 
     initTileLayer() {
@@ -56,6 +69,7 @@ class LeafletMap {
         this.markers.push(marker);
     }
 
+    
     updateMarkerPopup(marker, message) {
         const count = this.markerCounts[message];
         marker.bindPopup(`${message}<br>Number of People Occupied this area: ${count}`).openPopup();
@@ -102,6 +116,16 @@ class LeafletMap {
         this.modal.style.display = 'none';
     }
 
+    // Open occupation modal to collect user details
+    openOccupationModal() {
+        this.occupationModal.style.display = 'block';
+    }
+
+    // Close the occupation modal
+    closeOccupationModalWindow() {
+        this.occupationModal.style.display = 'none';
+    }
+
     // Confirm occupation and add marker
     confirmAreaOccupation() {
         const stationName = this.confirmBtn.dataset.stationName;
@@ -110,10 +134,41 @@ class LeafletMap {
 
         // Add marker only if the count is below 8
         if (this.markerCounts[stationName] < 8) {
-            this.addMarker(lat, long, stationName);
-            this.markerCounts[stationName]++;  // Increment count when the station is occupied
-            this.updateLogDisplay();
-            this.closeModalWindow();
+            this.closeModalWindow();  // Close the area confirmation modal
+            this.openOccupationModal();  // Open the occupation details modal
+        }
+    }
+
+    // Submit occupation form
+    submitOccupationForm() {
+        const name = this.nameInput.value;
+        const placardNumber = this.placardNumberInput.value;
+        const homeAddress = this.homeAddressInput.value;
+        const phoneNumber = this.phoneNumberInput.value;
+
+        const stationName = this.confirmBtn.dataset.stationName;
+        const lat = this.confirmBtn.dataset.lat;
+        const long = this.confirmBtn.dataset.long;
+
+        // Validation: check if all fields are filled
+        if (name && placardNumber && homeAddress && phoneNumber) {
+            if (this.markerCounts[stationName] < 8) {
+                // Increment marker count
+                this.markerCounts[stationName]++;
+
+                // Add the marker or perform other actions here
+                this.addMarker(lat, long, stationName);
+
+                // Log the occupation info
+                console.log(`Station ${stationName} occupied by ${name}, Placard: ${placardNumber}, Address: ${homeAddress}, Phone: ${phoneNumber}`);
+                
+                // Close the occupation modal
+                this.closeOccupationModalWindow();
+            } else {
+                alert('This station has reached its maximum occupancy.');
+            }
+        } else {
+            alert('Please fill in all the fields.');
         }
     }
 
