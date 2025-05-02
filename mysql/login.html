@@ -39,7 +39,7 @@
           text-align: center;
           font-size: 2rem;
           margin-bottom: 1.5rem;
-          color: #333;
+          color: #ff6c6c;
         }
       
         .input-group {
@@ -78,17 +78,19 @@
         .btn {
           width: 100%;
           padding: 12px;
-          background-color: #5d9cec;
+          background-color: #ffffff;
           border: none;
           border-radius: 8px;
-          color: white;
+          color: rgb(255, 113, 113);
           font-weight: bold;
           cursor: pointer;
           transition: background-color 0.3s ease;
+          border: 1px solid #ff6e6e;
         }
       
         .btn:hover {
-          background-color: #4a89dc;
+          background-color: #ff7676;
+          color: white;
         }
       
         .or {
@@ -127,7 +129,7 @@
         .links button {
           background: none;
           border: none;
-          color: #5d9cec;
+          color: #ff6e6e;
           font-weight: bold;
           cursor: pointer;
           font-size: 1rem;
@@ -157,7 +159,7 @@
     <div class="container" id="signUp" style="display: none;">
         <h1 class="form-title">Register</h1>
 
-        <form method="post" action="">
+        <form method="post" action="register.php">
         <div class="input-group">
             <i class="fas fa-user"></i>
             <label for="fname">First Name</label>
@@ -201,9 +203,7 @@
 
     <div class="container" id="signIn">
         <h1 class="form-title">Sign In</h1>
-
-        <form method="post" action="">
-
+        <form method="post" action="login.php">
         <div class="input-group">
             <i class="fas fa-envelope"></i>
             <label for="email">Email Address</label>
