@@ -50,10 +50,13 @@
             <a class="nav-link" href="services.html">Our Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
+            <a class="nav-link" href="login.html">Contact</a>
           </li>          
         </ul>
       </div>
+      <a class="navbar-brand" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+        <img src="account.png" alt="Logo" style="height: 30px; margin-bottom: 2rem; margin-right: 1rem;">
+      </a>
     </div>
   </nav>
 <body>
@@ -122,5 +125,99 @@
             </div>
           </div>
     </section>
+
+    !-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginModalLabel">Log In to Your Account</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Login Form -->
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label for="loginUsernameInput" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="loginUsernameInput" placeholder="Enter username" required>
+                </div>
+                <div class="mb-3">
+                  <label for="loginPasswordInput" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="loginPasswordInput" placeholder="Enter password" required>
+                </div>
+                <div class="mb-3">
+                  <button type="submit" class="btn  w-100">Log In</button>
+                </div>
+                <div class="text-center">
+                  <p>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">Sign up</a></p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    
+        <!-- Sign Up Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="signupModalLabel">Create an Account</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Sign Up Form -->
+              <form id="signupForm">
+                <div class="mb-3">
+                  <label for="usernameInput" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="usernameInput" placeholder="Enter username" required>
+                </div>
+                <div class="mb-3">
+                  <label for="emailInput" class="form-label">Email Address (optional)</label>
+                  <input type="email" class="form-control" id="emailInput" placeholder="Enter email" required>
+                </div>
+                <div class="mb-3">
+                  <label for="passwordInput" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="passwordInput" placeholder="Enter password" required>
+                </div>
+                <div class="mb-3">
+                  <button type="submit" class="btn  w-100">Sign Up</button>
+                </div>
+                <div class="text-center">
+                  <p>Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Log in</a></p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
+
+<script>
+  $('#signupForm').on('submit', function(e) {
+    e.preventDefault();
+    $.post('signup.php', {
+      username: $('#usernameInput').val(),
+      email: $('#emailInput').val(),
+      password: $('#passwordInput').val()
+    }, function(response) {
+      alert(response);
+    });
+  });
+
+  $('#loginForm').on('submit', function(e) {
+    e.preventDefault();
+    $.post('login.php', {
+      username: $('#loginUsernameInput').val(),
+      password: $('#loginPasswordInput').val()
+    }, function(response) {
+      if (response === 'success') {
+        window.location.href = 'dashboard.php'; // Or your landing page
+      } else {
+        alert(response);
+      }
+    });
+  });
+</script>
 </html>
